@@ -1,0 +1,1 @@
+MONTH_NAME = 'monthly_name'
