@@ -1,34 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-from .constant import MONTH_NAME
-month_goal_dictionary = {
-    "january": "Create a yearly budget plan",
-    "february": "Improve sleep schedule",
-    "march": "Spring clean home and digital devices",
-    "april": "Update resume and professional profiles",
-    "may": "Schedule annual health checkups",
-    "june": "Review half-year accomplishments",
-    "july": "Schedule quality time with family and friends",
-    "august": "Try a new healthy recipe each week",
-    "september": "Set Q4 objectives and priorities",
-    "october": "Practice daily mental health habits",
-    "november": "Review annual achievements",
-    "december": "Reflect and set vision for next year"
-}
+from .constant import MONTH_NAME, month_goal_dictionary
+from django.template.loader import render_to_string
+
 
 # Create your views here.
 
-def monthly_menu(request):
+def monthly_menu(request):    
     months = list(month_goal_dictionary.keys())
-    innerHtml = ""
-    for month in months:
-        innerHtml += f"<li><a href='{reverse(MONTH_NAME, args=[month])}'>{month.capitalize()}</a></li>"
-            
-    data_response = f"<ul>{innerHtml}</ul>"
-    
-    return HttpResponse(data_response)
-
+    return HttpResponse(render(request, 'monthly_challenges/monthly_challenges.html',
+    {
+        'months': months,
+        'name': MONTH_NAME 
+    }))
 
 def month_and_goal_view_int(request, month):
     
