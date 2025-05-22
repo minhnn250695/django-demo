@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly templates</title>
-</head>
+{% block page_title %}
+  Welcome to landing page
+{% endblock %}
 
-<body>
-    <h1>Welcome to landing page </h1>
-    <ul>
-        {% for month in months %}
-        <div class="item">
-            <li><a href="{% url name month %}">{{month}}</a></li> 
-        </div>
-        {% empty %}
-        <li>No months available</li>
-        {% endfor %}
-    </ul>
-</body>
-
-</html>
+{% block content %}
+  <ul>
+    {% for month in months %}
+      <div class="item">
+        <li>
+          <a href="{% url name month %}">{{ month|title }}</a>
+        </li>
+      </div>
+    {% empty %}
+      <li>No months available</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
